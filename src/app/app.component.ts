@@ -30,5 +30,9 @@ export class AppComponent {
   ng_Gd() {
     this.router.navigate(['/ng-gd']);
   }
+  
+  candleChart() {
+    this.router.navigate(['/candle-chart']);
+  }
 
 }
