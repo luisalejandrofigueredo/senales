@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, inject, OnInit, ViewChild } from '@angular/core';
-import {  ConnectionObject, LineObject, NgGdService, NodeObject, Point} from "ng-gd";
+import {  ConnectionObject, LineObject, NgGdService, NodeObject, Point, ShapeObject} from "ng-gd";
 @Component({
   selector: 'app-ng-gd-component',
   imports: [],
@@ -18,7 +18,8 @@ export class NgGdComponentComponent implements OnInit {
  ngOnInit(): void {
     this.ctx = this.canvas.nativeElement.getContext('2d')!;
     this.ctx.fillStyle = 'black';
-    this.gd.clearObjects(); //Only for stackblitz sample;
+    this.gd.clearObjects();
+    
     this.gd.start(
       this.canvas.nativeElement.width,
       this.canvas.nativeElement.height
@@ -63,12 +64,16 @@ export class NgGdComponentComponent implements OnInit {
     connect.distance = -5;
     connect.color = '#FF0000';
     //Other way to get a object
-    let node: NodeObject = <NodeObject>this.gd.casting(3);
-    node.angleLabel = 270;
-    node.distanceLabel = 10;
     console.log('Objects:', this.gd.canvasObjects);
+    let nodeByName=this.gd.findByName('Node sample');
+    let node: NodeObject = this.gd.casting(3) as NodeObject;
+    console.log('Node:', node,nodeByName);
+    node.angleLabel=0;
+    node.distanceLabel = 10;
+    this.gd.clear(this.ctx);
     this.gd.draw(this.ctx);
   }
+
   @HostListener('mousedown', ['$event'])
   async onMouseDown(event: MouseEvent) {
     if (this.gd.click(this.ctx, event).length > 0) {

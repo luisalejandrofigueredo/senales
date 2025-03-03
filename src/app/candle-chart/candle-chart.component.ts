@@ -120,24 +120,24 @@ export class CandleChartComponent implements OnInit {
     if (this.move === true) {
       this.gd.getClicks().forEach((element) => {
         if (!(element.shape instanceof LineObject)) {
-          element.shape.inverseShape(this.ctx);
+          this.gd.clear(this.ctx);
           element.shape.moveMouse(this.ctx, event);
-          element.shape.drawShape(this.ctx);
+          this.gd.draw(this.ctx);
         } else {
           if (element.action === 'inPointXY') {
-            element.shape.inverseShape(this.ctx);
+            this.gd.clear(this.ctx);
             (element.shape as LineObject).moveMouseXY(this.ctx, event);
-            element.shape.drawShape(this.ctx);
+            this.gd.draw(this.ctx);
           }
           if (element.action === 'inPointToXY') {
-            element.shape.inverseShape(this.ctx);
+            this.gd.clear(this.ctx);
             (element.shape as LineObject).moveMouseToXY(this.ctx, event);
-            element.shape.drawShape(this.ctx);
+            this.gd.draw(this.ctx);
           }
           if (element.action === 'inRectangle') {
-            element.shape.inverseShape(this.ctx);
+            this.gd.clear(this.ctx);
             (element.shape as LineObject).moveMouse(this.ctx, event);
-            element.shape.drawShape(this.ctx);
+            this.gd.draw(this.ctx);
           }
         }
       });
